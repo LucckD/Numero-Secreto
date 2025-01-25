@@ -1,7 +1,6 @@
 let listaDeNumerosSorteados = [];
 let numeroSecreto = gerarNumeroAleatorio();
 let tentativas = 1;
-
 function exibirTextoNaTela(tag, texto) {
     let campo = document.querySelector(tag);
     campo.innerHTML = texto;
@@ -24,6 +23,8 @@ function verificarChute() {
         document.getElementById('chutar').setAttribute('disabled', true);
         exibirTextoNaTela('h1', 'Parabéns!')
         exibirTextoNaTela('p', mensagemTentativas)
+    } else if (chute > 10 || chute < 1) {
+        alert('Digite um número de 1 a 10')
     } else {
         if (chute > numeroSecreto) {
             exibirTextoNaTela('p', 'O número secreto é menor');
@@ -66,4 +67,3 @@ function reiniciarJogo() {
     document.getElementById('chutar').removeAttribute('disabled');
     exibirMensagemInicial();
 }
-    
