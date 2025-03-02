@@ -1,4 +1,5 @@
 let listaDeNumerosSorteados = [];
+let listaDeNumeros = [];
 let numeroSecreto = gerarNumeroAleatorio();
 let tentativas = 1;
 function exibirTextoNaTela(tag, texto) {
@@ -15,7 +16,6 @@ exibirMensagemInicial();
 
 
 let localTentativas = document.querySelector('.texto');
-
 function tentativasTotais() {
     let chancesTotais = 6;
     let chancesRestantes = chancesTotais - tentativas;
@@ -29,7 +29,7 @@ function tentativasTotais() {
 }
 
 function verificarChute() {
-    let chute = document.querySelector('input').value; //value serve para que o visual me retorne o valor que foi colocado dentro do input
+    let chute = document.querySelector('input').value;
     if (chute == numeroSecreto) {
         let palavraTentativa = tentativas > 1 ? 'tentativas!' : 'tentativa!';
         let mensagemTentativas = `Você descobriu o número secreto com ${tentativas} ${palavraTentativa}`;
@@ -41,19 +41,27 @@ function verificarChute() {
         exibirTextoNaTela('h1', 'Parabéns!');
     } else if (chute > 10 || chute < 1) {
         alert('Digite um número de 1 a 10')
+    }
+    else if (listaDeNumeros.includes(chute)) {
+        alert('Você já chutou este número.');
     } else {
         if (chute > numeroSecreto) {
             exibirTextoNaTela('p', 'O número secreto é menor');
+            listaDeNumeros.push(chute);
             tentativas++;
             tentativasTotais();
         } else {
             exibirTextoNaTela('p', 'O número secreto é maior');
+            listaDeNumeros.push(chute);
             tentativas++;
             tentativasTotais();
         }
     }
     limparCampo();
+    verificarNumero();
 }
+
+
 
 function gerarNumeroAleatorio() {
     let numeroEscolhido = parseInt(Math.random() * 10 + 1);
